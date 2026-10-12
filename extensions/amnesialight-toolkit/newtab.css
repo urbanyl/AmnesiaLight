@@ -31,6 +31,17 @@ body {
   overflow-x: hidden;
 }
 
+/* Fond d'ecran (wallpaper.jpg fourni par l'utilisateur), assombri pour la lisibilite */
+body {
+  background-image:
+    linear-gradient(rgba(6, 16, 12, 0.72), rgba(6, 16, 12, 0.78)),
+    url("newtab-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
 .bg-glow {
   position: fixed;
   inset: 0;
