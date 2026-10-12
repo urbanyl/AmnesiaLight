@@ -77,3 +77,15 @@ document.getElementById("btnNewTab").addEventListener("click", function () {
 
 initActiveTab();
 refreshRewriteState();
+
+/* Fond d'ecran depuis la galerie du nouvel onglet */
+(function () {
+  var KEY = "al_wallpaper", def = "wp4.jpg";
+  function apply(f) {
+    document.documentElement.style.setProperty("--al-wallpaper", 'url("wallpapers/' + f + '")');
+  }
+  if (typeof browser !== "undefined" && browser.storage) {
+    browser.storage.local.get(KEY).then(function (r) { apply((r && r[KEY]) || def); })
+      .catch(function () { apply(def); });
+  } else { apply(def); }
+})();

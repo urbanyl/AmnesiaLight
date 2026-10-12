@@ -2,6 +2,19 @@
 
 Toutes les modifications notables d'AmnesiaLight sont documentees ici.
 
+## [0.2.1] - 2026-10-13
+
+### Ajoute
+- **Galerie de fonds d'ecran** dans le nouvel onglet : 4 fonds AmnesiaLight
+  (motif de lotus, logos, mandala, degrade + logo), selectionnable et memorise.
+  Fond applique au nouvel onglet, au toolkit et au popup.
+- Fond d'ecran sur les pages de depart (`about:home`, `about:newtab`,
+  `about:privatebrowsing`) et sur le site de presentation.
+- UUID d'extension deterministe (`7a1e5c20-9b6a-4d3e-8f21-0a1b2c3d4e5f`).
+
+### Modifie
+- Fonds d'ecran **optimises** (1600 px, JPEG q82) : ~394 Ko au total (au lieu de ~1,9 Mo).
+
 ## [0.2.0] - 2026-10-13
 
 ### Ajoute

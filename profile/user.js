@@ -145,4 +145,6 @@ user_pref("extensions.autoDisableScopes", 0);
 user_pref("extensions.enabledScopes", 15);
 // Laisse l'extension prendre le nouvel onglet (pas de page builtin prechargee).
 user_pref("browser.newtab.preload", false);
+// UUID stable -> URL deterministe : moz-extension://7a1e5c20-9b6a-4d3e-8f21-0a1b2c3d4e5f/
+user_pref("extensions.webextensions.uuids", "{\"amnesialight-toolkit@urbanyl\":\"7a1e5c20-9b6a-4d3e-8f21-0a1b2c3d4e5f\"}");
 

@@ -48,3 +48,28 @@
     box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.55) !important;
   }
 }
+
+/* ---------- Fond d'ecran AmnesiaLight sur les pages de depart ---------- */
+@-moz-document url("about:home"), url("about:newtab"), url("about:privatebrowsing") {
+  body {
+    background-color: #f4fbf8 !important;
+    background-image:
+      linear-gradient(rgba(244, 251, 248, 0.80), rgba(244, 251, 248, 0.90)),
+      url("wallpaper-pattern.jpg") !important;
+    background-size: cover, 360px auto !important;
+    background-position: center, top left !important;
+    background-repeat: no-repeat, repeat !important;
+    background-attachment: fixed, fixed !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  @-moz-document url("about:home"), url("about:newtab"), url("about:privatebrowsing") {
+    body {
+      background-color: #0b1a14 !important;
+      background-image:
+        linear-gradient(rgba(11, 26, 20, 0.86), rgba(11, 26, 20, 0.92)),
+        url("wallpaper-pattern.jpg") !important;
+    }
+  }
+}

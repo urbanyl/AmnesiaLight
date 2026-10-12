@@ -81,3 +81,15 @@ body {
   color: var(--al-muted);
   font-size: 11px;
 }
+
+/* Fond d'ecran AmnesiaLight */
+html, body {
+  background-color: #0b1220;
+  background-image:
+    linear-gradient(rgba(11, 18, 32, 0.90), rgba(11, 18, 32, 0.95)),
+    var(--al-wallpaper, url("wallpapers/wp4.jpg"));
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: fixed, fixed;
+}
