@@ -34,7 +34,11 @@ user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
 user_pref("browser.newtabpage.activity-stream.section.highlights.includePocket", false);
 user_pref("browser.newtabpage.activity-stream.feeds.snippets", false);
 user_pref("browser.newtabpage.activity-stream.default.sites", "");
-user_pref("browser.newtabpage.enabled", false);
+user_pref("browser.newtabpage.enabled", true);
+// Nouvel onglet : recherche + sites les plus visites, sans sponsors ni extraits.
+user_pref("browser.newtabpage.activity-stream.showSearch", true);
+user_pref("browser.newtabpage.activity-stream.feeds.topsites", true);
+user_pref("browser.newtabpage.activity-stream.topSitesRows", 1);
 
 // ---- Page d'accueil par defaut ---------------------------------------------
 // Site de presentation AmnesiaLight. Modifier l'URL ci-dessous si besoin.
@@ -133,3 +137,12 @@ user_pref("sidebar.verticalTabs", true);
 user_pref("sidebar.verticalTabs.dragToReorder", true);
 user_pref("sidebar.main.tools", "history,bookmarks");
 user_pref("browser.tabs.drawInTitlebar", true);
+
+// ---- Extension embarquee (AmnesiaLight Toolkit) ---------------------------
+// Charge l'extension non signee depuis le profil (profile/extensions/).
+user_pref("xpinstall.signatures.required", false);
+user_pref("extensions.autoDisableScopes", 0);
+user_pref("extensions.enabledScopes", 15);
+// Laisse l'extension prendre le nouvel onglet (pas de page builtin prechargee).
+user_pref("browser.newtab.preload", false);
+

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>AmnesiaLight Toolkit</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup">
+    <header class="head">
+      <img class="logo" src="icons/icon32.png" alt="AmnesiaLight" />
+      <div class="head-text">
+        <strong>AmnesiaLight Toolkit</strong>
+        <span id="activeUrl" class="muted">-</span>
+      </div>
+    </header>
+
+    <div class="menu">
+      <button id="btnOpenToolkit" class="item" type="button">
+        <span class="item-title">Ouvrir la boite a outils</span>
+        <span class="item-sub">Panneau complet (en-tetes, fuzzer, cookies...)</span>
+      </button>
+
+      <button id="btnFuzzUrl" class="item" type="button">
+        <span class="item-title">Fuzzer l'URL courante</span>
+        <span class="item-sub">Ouvre le panneau SQLi pre-rempli</span>
+      </button>
+
+      <button id="btnToggleRewrite" class="item" type="button">
+        <span class="item-title">Surcharge d'en-tetes</span>
+        <span class="item-sub" id="rewriteState">Desactivee</span>
+      </button>
+
+      <button id="btnNewTab" class="item" type="button">
+        <span class="item-title">Ouvrir la page Nouvel onglet</span>
+        <span class="item-sub">Accueil AmnesiaLight</span>
+      </button>
+    </div>
+
+    <footer class="foot">
+      Usage autorise uniquement.
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

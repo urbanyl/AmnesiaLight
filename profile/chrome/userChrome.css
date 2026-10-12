@@ -1,25 +1,150 @@
 /* =========================================================================
-   AmnesiaLight - userChrome.css  (minimal, geometrie PAR DEFAUT)
-   Aucun arrondi force, aucune marge, aucune transparence : on ne change
-   QUE les couleurs. La disposition reste celle de base du navigateur.
+   AmnesiaLight - userChrome.css
+   -------------------------------------------------------------------------
+   Theme d'ACCENTS uniquement : couleurs, fonds, bordures et ombres.
+   AUCUN changement de geometrie : pas de border-radius, pas de marge, pas de
+   padding, pas de backdrop-filter sur les conteneurs de chrome (barres
+   d'outils, onglets, barre laterale). La disposition reste celle, par defaut,
+   du navigateur.
+
+   Palette signature : vert #23a06a -> teal #14b8a6 -> cyan #38bdf8.
+   Compatible theme sombre et clair via prefers-color-scheme.
    ========================================================================= */
 
+/* ---------- Palette + variables de survol (mode sombre = defaut) ---------- */
 :root {
+  --al-green: #23a06a;
+  --al-teal:  #14b8a6;
+  --al-cyan:  #38bdf8;
+
+  /* Degrade signature (onglet actif) */
   --al-accent-grad: linear-gradient(135deg, #23a06a 0%, #14b8a6 55%, #38bdf8 100%);
+  --al-on-accent: #ffffff;
+
+  /* Accents discrets */
+  --al-tab-hover:        rgba(255, 255, 255, 0.09);
+  --al-btn-hover:        rgba(255, 255, 255, 0.12);
+  --al-btn-active:       rgba(20, 184, 166, 0.30);
+  --al-sidebar-hover:    rgba(255, 255, 255, 0.07);
+  --al-sidebar-selected: rgba(20, 184, 166, 0.26);
+  --al-status-bg:        rgba(6, 18, 14, 0.92);
+  --al-status-text:      #bfeee0;
+  --al-focus-ring:       rgba(56, 189, 248, 0.55);
+  --al-urlbar-border:    #14b8a6;
+  --al-link:             #7fd7f2;
+
+  /* Variables natives de survol des boutons de barre d'outils */
+  --toolbarbutton-hover-background: var(--al-btn-hover);
+  --toolbarbutton-active-background: var(--al-btn-active);
 }
 
-/* Onglet actif : degrade vert -> cyan (forme par defaut conservee) */
+/* ---------- Variante claire ---------- */
+@media (prefers-color-scheme: light) {
+  :root {
+    --al-tab-hover:        rgba(0, 0, 0, 0.07);
+    --al-btn-hover:        rgba(0, 0, 0, 0.09);
+    --al-btn-active:       rgba(20, 184, 166, 0.26);
+    --al-sidebar-hover:    rgba(0, 0, 0, 0.05);
+    --al-sidebar-selected: rgba(20, 184, 166, 0.20);
+    --al-status-bg:        rgba(255, 255, 255, 0.94);
+    --al-status-text:      #0c2a1f;
+    --al-focus-ring:       rgba(20, 184, 166, 0.50);
+    --al-urlbar-border:    #0f9b8a;
+    --al-link:             #0f766e;
+  }
+}
+
+/* =========================================================================
+   ONGLETS
+   ========================================================================= */
+
+/* Onglet actif : degrade vert -> cyan + soulignement accentue (sans geometrie).
+   On ne touche PAS a la forme : seul le fond et une ombre interne changent. */
 #sidebar-main .tabbrowser-tab[selected] .tab-background,
 #sidebar-main .tabbrowser-tab[visuallyselected] .tab-background,
-#TabsToolbar .tabbrowser-tab[selected] .tab-background,
-#TabsToolbar .tabbrowser-tab[visuallyselected] .tab-background {
+#TabsToolbar  .tabbrowser-tab[selected] .tab-background,
+#TabsToolbar  .tabbrowser-tab[visuallyselected] .tab-background {
   background: var(--al-accent-grad) !important;
+  box-shadow: inset 0 -3px 0 0 var(--al-cyan) !important;
 }
 
-/* Texte/icone lisibles sur le degrade */
+/* Texte et icone lisibles sur le degrade */
 #sidebar-main .tabbrowser-tab[selected] .tab-label,
 #sidebar-main .tabbrowser-tab[selected] .tab-icon-image,
-#TabsToolbar .tabbrowser-tab[selected] .tab-label,
-#TabsToolbar .tabbrowser-tab[selected] .tab-icon-image {
-  color: #ffffff !important;
+#sidebar-main .tabbrowser-tab[visuallyselected] .tab-label,
+#sidebar-main .tabbrowser-tab[visuallyselected] .tab-icon-image,
+#TabsToolbar  .tabbrowser-tab[selected] .tab-label,
+#TabsToolbar  .tabbrowser-tab[selected] .tab-icon-image,
+#TabsToolbar  .tabbrowser-tab[visuallyselected] .tab-label,
+#TabsToolbar  .tabbrowser-tab[visuallyselected] .tab-icon-image {
+  color: var(--al-on-accent) !important;
+}
+
+/* Bouton de fermeture de l'onglet actif */
+#sidebar-main .tabbrowser-tab[selected] .tab-close-button,
+#TabsToolbar  .tabbrowser-tab[selected] .tab-close-button {
+  color: var(--al-on-accent) !important;
+}
+
+/* Survol des onglets non actifs : simple fond, aucune ombre ni forme */
+#sidebar-main .tabbrowser-tab:not([selected]):not([visuallyselected]):hover .tab-background,
+#TabsToolbar  .tabbrowser-tab:not([selected]):not([visuallyselected]):hover .tab-background {
+  background-color: var(--al-tab-hover) !important;
+}
+
+/* =========================================================================
+   BARRE D'OUTILS (boutons)
+   ========================================================================= */
+
+/* Survol / actif des boutons : uniquement la couleur de fond. */
+toolbar .toolbarbutton-1:hover > .toolbarbutton-icon,
+toolbar .toolbarbutton-1:hover > .toolbarbutton-text,
+toolbar .toolbarbutton-1:hover > .toolbarbutton-badge-stack {
+  background-color: var(--al-btn-hover) !important;
+}
+toolbar .toolbarbutton-1[open] > .toolbarbutton-icon,
+toolbar .toolbarbutton-1[open] > .toolbarbutton-text,
+toolbar .toolbarbutton-1[open] > .toolbarbutton-badge-stack,
+toolbar .toolbarbutton-1:active > .toolbarbutton-icon {
+  background-color: var(--al-btn-active) !important;
+}
+
+/* =========================================================================
+   BARRE D'ADRESSE
+   ========================================================================= */
+
+/* Anneau de focus discret : on ne change QUE border-color et box-shadow.
+   La largeur de bordure et la forme d'origine sont conservees. */
+#urlbar[focused="true"] > #urlbar-background,
+#urlbar[breakout-extend="true"] > #urlbar-background {
+  border-color: var(--al-urlbar-border) !important;
+  box-shadow: 0 0 0 2px var(--al-focus-ring) !important;
+}
+
+/* =========================================================================
+   BARRE LATERALE (signets / historique)
+   ========================================================================= */
+
+/* Element selectionne : accent teal, sans geometrie. */
+#sidebar-box treechildren::-moz-tree-row(selected),
+#sidebar-box treechildren::-moz-tree-row(selected, focus) {
+  background-color: var(--al-sidebar-selected) !important;
+}
+/* Element survole */
+#sidebar-box treechildren::-moz-tree-row(hover) {
+  background-color: var(--al-sidebar-hover) !important;
+}
+
+/* =========================================================================
+   LIENS & BARRE D'ETAT (URL survolee)
+   ========================================================================= */
+
+.text-link,
+.text-link:link {
+  color: var(--al-link) !important;
+}
+
+#statuspanel-label {
+  color: var(--al-status-text) !important;
+  background-color: var(--al-status-bg) !important;
 }

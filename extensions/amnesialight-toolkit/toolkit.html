@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AmnesiaLight Toolkit</title>
+  <link rel="stylesheet" href="toolkit.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="side-brand">
+        <img src="icons/icon48.png" alt="AmnesiaLight" />
+        <div class="side-brand-text">
+          <strong>Amnesia<span>Light</span></strong>
+          <span>Security Toolkit</span>
+        </div>
+      </div>
+
+      <nav class="tabs" id="tabBar">
+        <button class="tab active" type="button" data-panel="headers">En-tetes HTTP</button>
+        <button class="tab" type="button" data-panel="sqli">Injection SQL</button>
+        <button class="tab" type="button" data-panel="xss">XSS / Fuzzer</button>
+        <button class="tab" type="button" data-panel="encoders">Encodeurs</button>
+        <button class="tab" type="button" data-panel="cookies">Cookies</button>
+        <button class="tab" type="button" data-panel="payloads">Bibliotheque</button>
+      </nav>
+
+      <div class="side-foot">
+        Usage autorise uniquement - testez seulement des systemes dont vous avez la permission.
+      </div>
+    </aside>
+
+    <main class="content">
+      <div class="disclaimer">
+        <strong>Attention :</strong> outils de test d'intrusion a n'utiliser que sur des systemes
+        dont vous avez l'autorisation explicite. Toute action est declenchee manuellement.
+      </div>
+
+      <!-- ============ EN-TETES HTTP ============ -->
+      <section id="panel-headers" class="panel active">
+        <div class="panel-head">
+          <h2>En-tetes HTTP</h2>
+          <div class="row">
+            <button id="btnRefreshHeaders" class="btn" type="button">Rafraichir</button>
+            <button id="btnClearHeaders" class="btn ghost" type="button">Effacer capture</button>
+          </div>
+        </div>
+        <p class="muted" id="headersTarget">Onglet cible : -</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Requete</h3>
+            <pre id="reqHeaders" class="mono box">-</pre>
+          </div>
+          <div class="card">
+            <h3>Reponse</h3>
+            <pre id="resHeaders" class="mono box">-</pre>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>Surcharge des en-tetes de requete</h3>
+            <label class="switch">
+              <input type="checkbox" id="rewriteToggle" />
+              <span>Activer</span>
+            </label>
+          </div>
+          <p class="muted">
+            Les en-tetes ci-dessous remplacent ou ajoutent des en-tetes sur chaque requete
+            lorsque l'option est activee.
+          </p>
+          <table class="table" id="overrideTable">
+            <thead>
+              <tr><th>Nom</th><th>Valeur</th><th class="col-x"></th></tr>
+            </thead>
+            <tbody id="overrideBody"></tbody>
+          </table>
+          <div class="row">
+            <button id="btnAddHeader" class="btn ghost" type="button">Ajouter un en-tete</button>
+            <button id="btnSaveHeaders" class="btn" type="button">Enregistrer</button>
+          </div>
+          <p class="muted" id="overrideStatus"></p>
+        </div>
+      </section>
+
+      <!-- ============ SQLI ============ -->
+      <section id="panel-sqli" class="panel">
+        <div class="panel-head"><h2>Injection SQL (fuzzer manuel)</h2></div>
+        <p class="muted">
+          Renseignez une URL avec parametres, le parametre a fuzzer et un jeu de payloads.
+          Chaque payload est envoye manuellement apres votre clic.
+        </p>
+        <div class="form-grid">
+          <label>URL cible<input type="text" id="sqliUrl" placeholder="https://cible.tld/page?id=1" /></label>
+          <label>Methode
+            <select id="sqliMethod"><option value="GET">GET</option><option value="POST">POST</option></select>
+          </label>
+          <label>Parametre a fuzzer<input type="text" id="sqliParam" placeholder="id" /></label>
+          <label>Jeu de payloads
+            <select id="sqliSet">
+              <option value="builtin">Bibliotheque SQLi</option>
+              <option value="custom">Personnalise</option>
+            </select>
+          </label>
+          <label class="full">Payloads personnalises (un par ligne)
+            <textarea id="sqliCustom" rows="4" placeholder="' OR '1'='1&#10;1' UNION SELECT NULL-- -"></textarea>
+          </label>
+          <label>Delai entre requetes (ms)<input type="number" id="sqliDelay" value="150" min="0" max="5000" /></label>
+          <label>Timeout (ms)<input type="number" id="sqliTimeout" value="15000" min="1000" max="60000" /></label>
+          <div class="full row">
+            <button id="btnRunSqli" class="btn" type="button">Fuzzer</button>
+            <button id="btnStopSqli" class="btn ghost" type="button" disabled>Arreter</button>
+            <button id="btnExportSqli" class="btn ghost" type="button">Exporter CSV</button>
+          </div>
+        </div>
+        <div class="progress"><div class="bar" id="sqliBar"></div></div>
+        <p class="muted" id="sqliStatus"></p>
+        <div class="table-wrap">
+          <table class="table" id="sqliTable">
+            <thead>
+              <tr><th>#</th><th>Payload</th><th>Statut</th><th>Taille</th><th>Temps (ms)</th><th>Erreur SQL ?</th></tr>
+            </thead>
+            <tbody id="sqliBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ XSS ============ -->
+      <section id="panel-xss" class="panel">
+        <div class="panel-head"><h2>XSS / Fuzzer</h2></div>
+        <p class="muted">
+          Envoie chaque payload et verifie s'il est reflechi tel quel dans la reponse.
+        </p>
+        <div class="form-grid">
+          <label>URL cible<input type="text" id="xssUrl" placeholder="https://cible.tld/search?q=test" /></label>
+          <label>Methode
+            <select id="xssMethod"><option value="GET">GET</option><option value="POST">POST</option></select>
+          </label>
+          <label>Parametre a fuzzer<input type="text" id="xssParam" placeholder="q" /></label>
+          <label>Jeu de payloads
+            <select id="xssSet">
+              <option value="builtin">Bibliotheque XSS</option>
+              <option value="custom">Personnalise</option>
+            </select>
+          </label>
+          <label class="full">Payloads personnalises (un par ligne)
+            <textarea id="xssCustom" rows="4"></textarea>
+          </label>
+          <label>Delai entre requetes (ms)<input type="number" id="xssDelay" value="150" min="0" max="5000" /></label>
+          <label>Timeout (ms)<input type="number" id="xssTimeout" value="15000" min="1000" max="60000" /></label>
+          <div class="full row">
+            <button id="btnRunXss" class="btn" type="button">Fuzzer</button>
+            <button id="btnStopXss" class="btn ghost" type="button" disabled>Arreter</button>
+            <button id="btnExportXss" class="btn ghost" type="button">Exporter CSV</button>
+          </div>
+        </div>
+        <div class="progress"><div class="bar" id="xssBar"></div></div>
+        <p class="muted" id="xssStatus"></p>
+        <div class="table-wrap">
+          <table class="table" id="xssTable">
+            <thead>
+              <tr><th>#</th><th>Payload</th><th>Statut</th><th>Taille</th><th>Temps (ms)</th><th>Refleche ?</th></tr>
+            </thead>
+            <tbody id="xssBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ ENCODEURS ============ -->
+      <section id="panel-encoders" class="panel">
+        <div class="panel-head"><h2>Encodeurs / Decodeurs</h2></div>
+        <p class="muted">
+          Outils de transformation de chaines. MD5 n'est pas disponible nativement dans le
+          navigateur (Web Crypto ne propose pas MD5) : utilisez SHA-1/256/512.
+        </p>
+        <div class="card">
+          <label>Entree<textarea id="encInput" rows="5" placeholder="Texte ou donnees..."></textarea></label>
+          <div class="row wrap" id="encButtons">
+            <button class="btn" type="button" data-op="urlencode">URL encode</button>
+            <button class="btn" type="button" data-op="urldecode">URL decode</button>
+            <button class="btn" type="button" data-op="b64encode">Base64 encode</button>
+            <button class="btn" type="button" data-op="b64decode">Base64 decode</button>
+            <button class="btn" type="button" data-op="hexencode">Hex encode</button>
+            <button class="btn" type="button" data-op="hexdecode">Hex decode</button>
+            <button class="btn" type="button" data-op="htmlencode">HTML encode</button>
+            <button class="btn" type="button" data-op="htmldecode">HTML decode</button>
+            <button class="btn" type="button" data-op="rot13">ROT13</button>
+            <button class="btn ghost" type="button" data-op="sha1">SHA-1</button>
+            <button class="btn ghost" type="button" data-op="sha256">SHA-256</button>
+            <button class="btn ghost" type="button" data-op="sha512">SHA-512</button>
+            <button class="btn ghost" type="button" data-op="jwt">Decoder JWT</button>
+          </div>
+          <label>Sortie<textarea id="encOutput" rows="6" readonly></textarea></label>
+          <div class="row">
+            <button id="btnEncCopy" class="btn ghost" type="button">Copier la sortie</button>
+            <button id="btnEncSwap" class="btn ghost" type="button">Utiliser la sortie comme entree</button>
+            <span class="muted" id="encStatus"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ COOKIES ============ -->
+      <section id="panel-cookies" class="panel">
+        <div class="panel-head">
+          <h2>Cookies</h2>
+          <div class="row">
+            <button id="btnRefreshCookies" class="btn" type="button">Rafraichir</button>
+            <button id="btnCopyCookieHeader" class="btn ghost" type="button">Copier en en-tete Cookie</button>
+          </div>
+        </div>
+        <p class="muted" id="cookieTarget">Domaine : -</p>
+        <div class="table-wrap">
+          <table class="table" id="cookieTable">
+            <thead>
+              <tr><th>Nom</th><th>Valeur</th><th>Domaine</th><th>Chemin</th><th>Secure</th><th>HttpOnly</th><th class="col-x"></th></tr>
+            </thead>
+            <tbody id="cookieBody"></tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h3>Ajouter / Modifier un cookie</h3>
+          <div class="form-grid">
+            <label>Nom<input type="text" id="cookieName" /></label>
+            <label>Valeur<input type="text" id="cookieValue" /></label>
+            <label>Domaine<input type="text" id="cookieDomain" placeholder=".exemple.tld" /></label>
+            <label>Chemin<input type="text" id="cookiePath" value="/" /></label>
+            <label class="inline"><input type="checkbox" id="cookieSecure" /> Secure</label>
+            <label class="inline"><input type="checkbox" id="cookieHttpOnly" /> HttpOnly</label>
+            <div class="full row">
+              <button id="btnSaveCookie" class="btn" type="button">Definir le cookie</button>
+              <span class="muted" id="cookieStatus"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PAYLOADS ============ -->
+      <section id="panel-payloads" class="panel">
+        <div class="panel-head">
+          <h2>Bibliotheque de payloads</h2>
+          <input id="payloadSearch" class="search-inline" type="text" placeholder="Filtrer..." />
+        </div>
+        <div id="payloadContainer"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="payloads.js"></script>
+  <script src="toolkit.js"></script>
+</body>
+</html>

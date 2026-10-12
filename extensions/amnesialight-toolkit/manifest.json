@@ -1,0 +1,54 @@
+{
+  "manifest_version": 2,
+  "name": "AmnesiaLight Toolkit",
+  "version": "1.0.0",
+  "description": "Outils de securite et de test d'intrusion (usage autorise uniquement).",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "amnesialight-toolkit@urbanyl",
+      "strict_min_version": "115.0"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "storage",
+    "cookies",
+    "webRequest",
+    "webRequestBlocking",
+    "clipboardWrite",
+    "notifications",
+    "contextMenus",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": ["payloads.js", "background.js"],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_title": "AmnesiaLight Toolkit",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "sidebar_action": {
+    "default_title": "AmnesiaLight Toolkit",
+    "default_panel": "toolkit.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  }
+}

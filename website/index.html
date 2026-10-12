@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AmnesiaLight — Navigateur privé, léger et sécurisé</title>
-  <meta name="description" content="AmnesiaLight : navigateur ultra-sécurisé, léger et respectueux de la vie privée. DuckDuckGo par défaut, navigation privée, zéro télémétrie." />
+  <meta name="description" content="AmnesiaLight : navigateur ultra-sécurisé, léger et respectueux de la vie privée. DuckDuckGo par défaut, navigation privée, zéro télémétrie, outils de sécurité intégrés." />
   <meta name="theme-color" content="#0c2a1f" />
   <link rel="icon" href="assets/favicon.ico" />
   <meta property="og:title" content="AmnesiaLight" />
@@ -22,6 +22,7 @@
     <nav class="nav-links">
       <a href="#features">Fonctionnalités</a>
       <a href="#securite">Sécurité</a>
+      <a href="#outils">Outils</a>
       <a href="#telecharger">Télécharger</a>
       <a href="https://github.com/urbanyl/AmnesiaLight" target="_blank" rel="noopener">GitHub</a>
     </nav>
@@ -84,15 +85,9 @@
       </div>
     </section>
 
-    <section class="section shot">
-      <h2>En un coup d'œil</h2>
-      <div class="window">
-        <img src="assets/screenshot.png" alt="Interface d'AmnesiaLight avec DuckDuckGo et onglets verticaux" loading="lazy" />
-      </div>
-    </section>
-
     <section id="securite" class="section">
       <h2>Sécurité par défaut</h2>
+      <p class="lead">Des protections actives dès le premier lancement, verrouillées par des politiques d'entreprise.</p>
       <div class="cols">
         <ul class="check">
           <li>Protection anti-pistage stricte</li>
@@ -108,6 +103,69 @@
           <li>Télémétrie et études désactivées</li>
           <li>Politiques verrouillées (enterprise)</li>
         </ul>
+      </div>
+    </section>
+
+    <section id="outils" class="section tools">
+      <h2>Outils de sécurité</h2>
+      <p class="lead">
+        Une boîte à outils d'audit <strong>intégrée au navigateur</strong> pour comprendre,
+        inspecter et tester la sécurité du web — sans rien installer, sans extension.
+      </p>
+
+      <div class="tool-grid">
+        <article class="tool">
+          <span class="tool-ico" aria-hidden="true">HTTP</span>
+          <h3>Éditeur d'en-têtes HTTP</h3>
+          <p>Inspectez, ajoutez ou modifiez les en-têtes de requête et de réponse pour analyser la posture de sécurité des échanges.</p>
+        </article>
+        <article class="tool">
+          <span class="tool-ico" aria-hidden="true">SQLi</span>
+          <h3>Fuzzer d'injection SQL</h3>
+          <p>Envoie des charges contrôlées pour repérer d'éventuels points d'injection sur une cible que vous êtes autorisé à tester.</p>
+        </article>
+        <article class="tool">
+          <span class="tool-ico" aria-hidden="true">XSS</span>
+          <h3>Fuzzer XSS</h3>
+          <p>Teste la réflexion et l'encodage des entrées afin de déceler les failles de script inter-sites.</p>
+        </article>
+        <article class="tool">
+          <span class="tool-ico" aria-hidden="true">ENC</span>
+          <h3>Encodeurs / décodeurs</h3>
+          <p>Base64, URL, HTML, hexadécimal… encodez et décodez rapidement vos charges utiles pendant les analyses.</p>
+        </article>
+        <article class="tool">
+          <span class="tool-ico" aria-hidden="true">CK</span>
+          <h3>Éditeur de cookies</h3>
+          <p>Visualisez, éditez et supprimez les cookies de session pour reproduire ou nettoyer un état d'authentification.</p>
+        </article>
+        <article class="tool">
+          <span class="tool-ico" aria-hidden="true">PL</span>
+          <h3>Bibliothèque de payloads</h3>
+          <p>Une collection classée de charges utiles prêtes à l'emploi pour accélérer vos tests autorisés.</p>
+        </article>
+      </div>
+
+      <p class="notice">
+        <strong>Usage autorisé uniquement.</strong>
+        Ces outils sont destinés aux tests de sécurité, à la recherche et à l'apprentissage
+        sur des systèmes dont vous êtes propriétaire, ou pour lesquels vous disposez d'une
+        autorisation écrite. Toute utilisation contre un système sans autorisation est illégale.
+      </p>
+    </section>
+
+    <section class="section shot" id="apercu">
+      <h2>En un coup d'œil</h2>
+      <p class="lead">Une interface épurée, des onglets verticaux et le dégradé signature vert → cyan.</p>
+      <div class="gallery">
+        <figure class="window">
+          <img src="assets/screenshot.png" alt="Interface d'AmnesiaLight avec DuckDuckGo et onglets verticaux" loading="lazy" />
+          <figcaption>Onglet actif : le dégradé vert → cyan signe l'état sélectionné, sans toucher à la disposition d'origine.</figcaption>
+        </figure>
+        <figure class="brandcard">
+          <img src="assets/logo-full.svg" alt="Logo AmnesiaLight" loading="lazy" width="150" height="211" />
+          <figcaption>Identité visuelle — lotus radial, du vert au cyan.</figcaption>
+        </figure>
       </div>
     </section>
 

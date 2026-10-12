@@ -2,6 +2,23 @@
 
 Toutes les modifications notables d'AmnesiaLight sont documentees ici.
 
+## [0.2.0] - 2026-10-13
+
+### Ajoute
+- Extension embarquee **AmnesiaLight Toolkit** (`profile/extensions/amnesialight-toolkit/`,
+  Manifest V2, usage autorise uniquement) : en-tetes HTTP, fuzzer SQL/XSS,
+  encodeurs/decodeurs, cookies et bibliotheque de payloads.
+- Page **"Nouvel onglet" personnalisee** (`newtab.html`) : recherche DuckDuckGo,
+  horloge, raccourcis et acces rapide aux outils.
+- Panneau de parametres : signatures d'extensions **desactivees** et
+  **sideload** active, pour charger l'extension embarquee non signee du profil.
+
+### Modifie
+- Retouches visuelles : panneaux du Toolkit et page nouvel onglet alignes sur le
+  theme AmnesiaLight (accent degrade vert → cyan, geometrie par defaut).
+- Documentation : nouvelle page `docs/SECURITY-TOOLS.md`, section dediee et
+  arborescence mises a jour dans `README.md`.
+
 ## [0.1.0] - 2026-10-12
 
 ### Ajoute

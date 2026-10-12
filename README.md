@@ -23,6 +23,9 @@ macOS) aux couleurs **vert & bleu** d'AmnesiaLight.
 - **Theming** : barre d'onglets **verticale** style Arc, accent degrade vert → cyan
   sur l'onglet actif, **disposition par defaut** (aucun arrondi force, aucune
   transparence qui casse la mise en page).
+- **Outils de securite** : extension **AmnesiaLight Toolkit** embarquee
+  (en-tetes HTTP, fuzzer SQLi/XSS, encodeurs/decodeurs, cookies, bibliotheque
+  de payloads) — **usage autorise uniquement**.
 
 ## Apercu
 
@@ -38,6 +41,8 @@ AmnesiaLight/
 ├─ profile/
 │  ├─ user.js                # preferences durcies (appliquees a chaque demarrage)
 │  ├─ search/duckduckgo.xml  # moteur DuckDuckGo AmnesiaLight
+│  ├─ extensions/
+│  │  └─ amnesialight-toolkit/ # extension embarquee (outils de securite, MV2)
 │  └─ chrome/
 │     ├─ userChrome.css      # theme de l'interface
 │     ├─ userContent.css     # pages internes
@@ -50,7 +55,7 @@ AmnesiaLight/
 ├─ tools/                    # generateur d'icones, packager portable
 ├─ website/                  # site statique de presentation (GitHub Pages)
 ├─ dist/                     # paquet portable genere (non versionne)
-└─ docs/                     # INSTALL, SECURITY, CONTRIBUTING
+└─ docs/                     # INSTALL, SECURITY, SECURITY-TOOLS, CONTRIBUTING
 ```
 
 ## Demarrage rapide
@@ -95,6 +100,34 @@ Ferme le navigateur puis lance :
 - Reglages verrouilles/entreprise : `distribution/policies.json`
   (copie lue par le moteur : `engine/distribution/policies.json`)
 - Theme : `profile/chrome/userChrome.css` et `userContent.css`
+
+## Outils de securite (AmnesiaLight Toolkit)
+
+AmnesiaLight embarque une extension dans `profile/extensions/amnesialight-toolkit/`
+(Manifest V2) : le **AmnesiaLight Toolkit**. Elle est chargee automatiquement
+(signatures desactivees + sideload actif) et ajoute une **barre laterale**, un
+**menu compact** et une page **"Nouvel onglet"** personnalisee.
+
+Ce qu'elle apporte :
+
+- **Nouvel onglet** custom : recherche **DuckDuckGo**, **horloge**,
+  **raccourcis** et acces rapide aux outils.
+- **En-tetes HTTP** : voir et reecrire les en-tetes de requete de l'onglet actif.
+- **Injection SQL (fuzzer)** : injecte des payloads et compare statut / taille /
+  temps / erreurs.
+- **XSS (fuzzer)** : teste la reflexion de payloads HTML/JS.
+- **Encodeurs / decodeurs** : URL, Base64, Hex, entites HTML, ROT13, JWT et
+  SHA-1/256/512.
+- **Cookies** : lister, editer et supprimer les cookies du domaine de l'onglet.
+- **Bibliotheque de payloads** : SQLi, XSS, LFI, SSRF, Command injection,
+  Open redirect.
+
+> **Usage autorise uniquement.** Ces outils sont reserves aux tests de
+> securite **autorises** : ne teste que les systemes que tu possedes ou pour
+> lesquels tu disposes d'une autorisation ecrite explicite. L'acces non
+> autorise est **illegal** et tu en es seul responsable.
+
+Documentation complete : [`docs/SECURITY-TOOLS.md`](docs/SECURITY-TOOLS.md).
 
 ## Site de presentation
 

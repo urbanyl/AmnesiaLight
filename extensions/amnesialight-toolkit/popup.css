@@ -1,0 +1,83 @@
+/* popup.css - AmnesiaLight Toolkit popup */
+
+:root {
+  --al-green: #23a06a;
+  --al-teal: #14b8a6;
+  --al-sky: #38bdf8;
+  --al-bg: #0b1220;
+  --al-surface: #111c30;
+  --al-surface-2: #16243d;
+  --al-border: #23344f;
+  --al-text: #e6eefb;
+  --al-muted: #93a4bd;
+  --al-radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  width: 320px;
+  background: var(--al-bg);
+  color: var(--al-text);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+}
+
+.popup { padding: 12px; }
+
+.head {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 6px 4px 12px;
+  border-bottom: 1px solid var(--al-border);
+  margin-bottom: 10px;
+}
+
+.logo { width: 32px; height: 32px; }
+
+.head-text { display: flex; flex-direction: column; overflow: hidden; }
+.head-text strong { font-size: 14px; }
+
+.muted {
+  color: var(--al-muted);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 240px;
+}
+
+.menu { display: flex; flex-direction: column; gap: 8px; }
+
+.item {
+  text-align: left;
+  cursor: pointer;
+  border: 1px solid var(--al-border);
+  background: var(--al-surface);
+  color: var(--al-text);
+  border-radius: var(--al-radius);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+
+.item:hover {
+  border-color: var(--al-sky);
+  background: var(--al-surface-2);
+}
+
+.item-title { font-size: 13.5px; font-weight: 600; }
+.item-sub { font-size: 11.5px; color: var(--al-muted); }
+.item-sub.on { color: var(--al-green); }
+
+.foot {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--al-border);
+  text-align: center;
+  color: var(--al-muted);
+  font-size: 11px;
+}

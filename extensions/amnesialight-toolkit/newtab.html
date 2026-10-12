@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AmnesiaLight - Nouvel onglet</title>
+  <link rel="stylesheet" href="newtab.css" />
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <main class="page">
+    <header class="hero">
+      <img class="logo" src="icons/icon96.png" alt="AmnesiaLight" />
+      <h1 class="brand">Amnesia<span>Light</span></h1>
+      <div class="clock" id="clock">
+        <div class="clock-time" id="clockTime">--:--:--</div>
+        <div class="clock-date" id="clockDate">-</div>
+      </div>
+    </header>
+
+    <section class="search">
+      <form class="search-form" action="https://duckduckgo.com/" method="get" target="_top">
+        <img class="search-icon" src="icons/icon32.png" alt="" />
+        <input
+          class="search-input"
+          type="text"
+          name="q"
+          autocomplete="off"
+          autofocus
+          placeholder="Rechercher sur DuckDuckGo ou saisir une URL..." />
+        <button class="search-button" type="submit">Rechercher</button>
+      </form>
+    </section>
+
+    <section class="tiles" aria-label="Acces rapides">
+      <a class="tile" href="https://github.com/urbanyl/AmnesiaLight" target="_blank" rel="noreferrer">
+        <span class="tile-title">GitHub</span>
+        <span class="tile-sub">Projet AmnesiaLight</span>
+      </a>
+      <a class="tile" href="https://duckduckgo.com/" target="_blank" rel="noreferrer">
+        <span class="tile-title">DuckDuckGo</span>
+        <span class="tile-sub">Recherche privee</span>
+      </a>
+      <a class="tile" href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noreferrer">
+        <span class="tile-title">OWASP Top 10</span>
+        <span class="tile-sub">Reference securite</span>
+      </a>
+      <a class="tile" href="https://portswigger.net/web-security" target="_blank" rel="noreferrer">
+        <span class="tile-title">Web Security Academy</span>
+        <span class="tile-sub">Apprentissage</span>
+      </a>
+      <a class="tile" href="https://developer.mozilla.org/" target="_blank" rel="noreferrer">
+        <span class="tile-title">MDN</span>
+        <span class="tile-sub">Documentation web</span>
+      </a>
+      <a class="tile" href="https://cve.mitre.org/" target="_blank" rel="noreferrer">
+        <span class="tile-title">CVE</span>
+        <span class="tile-sub">Vulnerabilites</span>
+      </a>
+    </section>
+
+    <section class="toolkit-card">
+      <div class="toolkit-head">
+        <img class="toolkit-logo" src="icons/icon48.png" alt="" />
+        <div>
+          <h2>Security Toolkit</h2>
+          <p>Analyse d'en-tetes, fuzzing SQLi/XSS, encodage, cookies et bibliotheque de payloads.</p>
+        </div>
+      </div>
+      <div class="toolkit-actions">
+        <a class="btn" href="toolkit.html?panel=headers" target="_blank" rel="noreferrer">En-tetes HTTP</a>
+        <a class="btn" href="toolkit.html?panel=sqli" target="_blank" rel="noreferrer">Injection SQL</a>
+        <a class="btn" href="toolkit.html?panel=xss" target="_blank" rel="noreferrer">XSS / Fuzzer</a>
+        <a class="btn" href="toolkit.html?panel=encoders" target="_blank" rel="noreferrer">Encodeurs</a>
+        <a class="btn" href="toolkit.html?panel=cookies" target="_blank" rel="noreferrer">Cookies</a>
+        <a class="btn" href="toolkit.html?panel=payloads" target="_blank" rel="noreferrer">Payloads</a>
+      </div>
+    </section>
+
+    <footer class="banner">
+      Outils de securite - a utiliser uniquement sur des systemes dont vous avez l'autorisation.
+    </footer>
+  </main>
+
+  <script src="newtab.js"></script>
+</body>
+</html>

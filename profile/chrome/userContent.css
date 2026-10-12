@@ -1,9 +1,50 @@
 /* =========================================================================
    AmnesiaLight - userContent.css
-   On ne touche PAS aux pages internes : rendu par defaut.
-   (Variable de palette conservee pour usage futur.)
+   -------------------------------------------------------------------------
+   Touche LEGERE. On n'impose AUCUN fond de page ni degrade global (risque de
+   rendu casse). Seuls : la couleur d'accent des pages internes (about:) et
+   les barres de defilement. Compatible theme clair et sombre.
    ========================================================================= */
 
 :root {
+  --al-green: #23a06a;
+  --al-teal:  #14b8a6;
+  --al-cyan:  #38bdf8;
   --al-accent-grad: linear-gradient(135deg, #23a06a 0%, #14b8a6 55%, #38bdf8 100%);
+
+  /* Ascenseurs : pouce accentue, piste discrete (mode sombre) */
+  scrollbar-color: var(--al-teal) rgba(255, 255, 255, 0.10);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    scrollbar-color: var(--al-teal) rgba(0, 0, 0, 0.10);
+  }
+}
+
+/* ---------- Accents des pages internes (about:) ---------- */
+@-moz-document url-prefix("about:") {
+  :root {
+    scrollbar-color: var(--al-teal) rgba(127, 215, 242, 0.18);
+  }
+
+  /* Liens */
+  a:link    { color: var(--al-cyan); }
+  a:visited { color: var(--al-teal); }
+  a:hover,
+  a:active  { color: var(--al-green); }
+
+  /* Page de navigation privee : accent du champ / bouton de recherche.
+     Uniquement border-color et box-shadow : aucune geometrie modifiee. */
+  #search-handoff-button,
+  .search-handoff-button,
+  .fake-textbox {
+    border-color: var(--al-teal) !important;
+  }
+  #search-handoff-button:focus,
+  #search-handoff-button:focus-within,
+  .search-handoff-button:focus,
+  .search-handoff-button:focus-within {
+    box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.55) !important;
+  }
 }
