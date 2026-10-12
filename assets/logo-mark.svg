@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="alTitle alDesc">
+  <title id="alTitle">AmnesiaLight mark</title>
+  <desc id="alDesc">Radial lotus flower with eight petals, green on the left fading to cyan and blue on the right, glowing at the center.</desc>
+  <defs>
+    <linearGradient id="alPetal" x1="10" y1="128" x2="246" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0c2a1f"/>
+      <stop offset="0.22" stop-color="#1e7d54"/>
+      <stop offset="0.46" stop-color="#23a06a"/>
+      <stop offset="0.72" stop-color="#14b8a6"/>
+      <stop offset="1" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="alInner" x1="46" y1="128" x2="210" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#123a2b"/>
+      <stop offset="0.45" stop-color="#14b8a6"/>
+      <stop offset="1" stop-color="#7fd7f2"/>
+    </linearGradient>
+    <radialGradient id="alGlow" cx="128" cy="128" r="66" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="0.5" stop-color="#e8fbf4" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <path id="alPetalShape" d="M128 128 C99 104 99 66 128 30 C157 66 157 104 128 128 Z"/>
+    <path id="alInnerShape" d="M128 128 C111 114 111 92 128 74 C145 92 145 114 128 128 Z"/>
+  </defs>
+
+  <rect width="256" height="256" fill="#ffffff"/>
+
+  <g fill="url(#alPetal)" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">
+    <use href="#alPetalShape"/>
+    <use href="#alPetalShape" transform="rotate(45 128 128)"/>
+    <use href="#alPetalShape" transform="rotate(90 128 128)"/>
+    <use href="#alPetalShape" transform="rotate(135 128 128)"/>
+    <use href="#alPetalShape" transform="rotate(180 128 128)"/>
+    <use href="#alPetalShape" transform="rotate(225 128 128)"/>
+    <use href="#alPetalShape" transform="rotate(270 128 128)"/>
+    <use href="#alPetalShape" transform="rotate(315 128 128)"/>
+  </g>
+
+  <g fill="url(#alInner)" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round">
+    <use href="#alInnerShape" transform="rotate(22.5 128 128)"/>
+    <use href="#alInnerShape" transform="rotate(67.5 128 128)"/>
+    <use href="#alInnerShape" transform="rotate(112.5 128 128)"/>
+    <use href="#alInnerShape" transform="rotate(157.5 128 128)"/>
+    <use href="#alInnerShape" transform="rotate(202.5 128 128)"/>
+    <use href="#alInnerShape" transform="rotate(247.5 128 128)"/>
+    <use href="#alInnerShape" transform="rotate(292.5 128 128)"/>
+    <use href="#alInnerShape" transform="rotate(337.5 128 128)"/>
+  </g>
+
+  <circle cx="128" cy="128" r="66" fill="url(#alGlow)"/>
+</svg>

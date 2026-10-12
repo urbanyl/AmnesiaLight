@@ -1,0 +1,9 @@
+/* =========================================================================
+   AmnesiaLight - userContent.css
+   On ne touche PAS aux pages internes : rendu par defaut.
+   (Variable de palette conservee pour usage futur.)
+   ========================================================================= */
+
+:root {
+  --al-accent-grad: linear-gradient(135deg, #23a06a 0%, #14b8a6 55%, #38bdf8 100%);
+}

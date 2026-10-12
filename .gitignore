@@ -1,0 +1,33 @@
+# AmnesiaLight
+
+# Engine binary (not distributed in this repo)
+/engine/*
+!/engine/README.md
+!/engine/VERSION.txt
+
+# Browser profile: keep ONLY the seed (prefs + theme + search)
+/profile/*
+!/profile/user.js
+!/profile/chrome/
+!/profile/search/
+
+# Build artifacts (Phase 2)
+/build/
+/obj*/
+/mozilla-*/
+/dist/
+*.o
+*.obj
+*.a
+*.lib
+*.pdb
+*.exe
+!launch/**/*.cmd
+
+# OS / editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.tmp
+.vscode/
+.idea/

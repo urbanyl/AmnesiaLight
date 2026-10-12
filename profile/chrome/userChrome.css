@@ -1,0 +1,25 @@
+/* =========================================================================
+   AmnesiaLight - userChrome.css  (minimal, geometrie PAR DEFAUT)
+   Aucun arrondi force, aucune marge, aucune transparence : on ne change
+   QUE les couleurs. La disposition reste celle de base du navigateur.
+   ========================================================================= */
+
+:root {
+  --al-accent-grad: linear-gradient(135deg, #23a06a 0%, #14b8a6 55%, #38bdf8 100%);
+}
+
+/* Onglet actif : degrade vert -> cyan (forme par defaut conservee) */
+#sidebar-main .tabbrowser-tab[selected] .tab-background,
+#sidebar-main .tabbrowser-tab[visuallyselected] .tab-background,
+#TabsToolbar .tabbrowser-tab[selected] .tab-background,
+#TabsToolbar .tabbrowser-tab[visuallyselected] .tab-background {
+  background: var(--al-accent-grad) !important;
+}
+
+/* Texte/icone lisibles sur le degrade */
+#sidebar-main .tabbrowser-tab[selected] .tab-label,
+#sidebar-main .tabbrowser-tab[selected] .tab-icon-image,
+#TabsToolbar .tabbrowser-tab[selected] .tab-label,
+#TabsToolbar .tabbrowser-tab[selected] .tab-icon-image {
+  color: #ffffff !important;
+}

@@ -1,0 +1,61 @@
+{
+  "policies": {
+    "SearchEngines": {
+      "Default": "DuckDuckGo",
+      "Remove": [
+        "Google", "Bing", "Amazon.com", "eBay", "Twitter", "Wikipedia (en)",
+        "Yahoo", "Yandex", "Qwant", "Ecosia", "Startpage", "Wikipedia (fr)"
+      ],
+      "DefaultPrivate": "DuckDuckGo"
+    },
+    "Homepage": {
+      "URL": "https://amnesialight.edgeone.dev/",
+      "StartPage": "homepage",
+      "Locked": false
+    },
+    "DisableTelemetry": true,
+    "DisableFirefoxStudies": true,
+    "DisablePocket": true,
+    "DisableFeedbackCommands": true,
+    "DisableFirefoxAccounts": true,
+    "DisableFormHistory": true,
+    "DisableProfileImport": true,
+    "DisableProfileRefresh": true,
+    "DisableSetDesktopBackground": true,
+    "DisableSystemAddonUpdate": false,
+    "DontCheckDefaultBrowser": true,
+    "OfferToSaveLogins": false,
+    "PasswordManagerEnabled": false,
+    "EnableTrackingProtection": {
+      "Value": true,
+      "Locked": true,
+      "Cryptomining": true,
+      "Fingerprinting": true
+    },
+    "Cookies": {
+      "Behavior": "reject-tracker-and-partition-foreign",
+      "Locked": true
+    },
+    "HttpsOnly": true,
+    "DNSOverHTTPS": {
+      "Enabled": true,
+      "ProviderURL": "https://dns.quad9.net/dns-query",
+      "Locked": true,
+      "Fallback": false
+    },
+    "Permissions": {
+      "Camera": { "BlockNewRequests": true },
+      "Microphone": { "BlockNewRequests": true },
+      "Geolocation": { "BlockNewRequests": true },
+      "Notifications": { "BlockNewRequests": true },
+      "Location": { "BlockNewRequests": true }
+    },
+    "Preferences": {
+      "browser.privatebrowsing.autostart": { "Value": false, "Status": "default" },
+      "extensions.pocket.enabled": { "Value": false, "Status": "locked" },
+      "browser.newtabpage.enabled": { "Value": false, "Status": "default" },
+      "browser.cache.disk.enable": { "Value": false, "Status": "default" },
+      "toolkit.legacyUserProfileCustomizations.stylesheets": { "Value": true, "Status": "locked" }
+    }
+  }
+}

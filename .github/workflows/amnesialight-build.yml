@@ -1,0 +1,157 @@
+name: AmnesiaLight build
+
+# Phase-2 build pipeline. CI is the primary build path: a full Gecko build
+# takes hours and needs a heavy toolchain, so it runs on GitHub-hosted runners.
+#
+# Flow: fetch pinned Gecko/ESR source -> mach bootstrap + Rust -> rebrand to
+#       AmnesiaLight -> mach build && mach package -> package artifacts.
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # Pinned upstream source used for the rebranded build (bump deliberately).
+  FIREFOX_ESR_VERSION: "128.4.0esr"
+  # ccache tuning.
+  CCACHE_MAXSIZE: "3G"
+  CCACHE_COMPRESS: "true"
+
+jobs:
+  build:
+    name: build (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    # A cold Gecko build can exceed two hours; allow a generous ceiling.
+    timeout-minutes: 720
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux
+            artifact: AmnesiaLight-linux-x86_64
+          - os: windows-latest
+            platform: win
+            artifact: AmnesiaLight-win64
+
+    steps:
+      - name: Checkout AmnesiaLight
+        uses: actions/checkout@v4
+
+      # ---- Compiler cache -------------------------------------------------
+      # Linux uses ccache; Windows uses sccache via the same action.
+      - name: Cache compiler (Linux / ccache)
+        if: matrix.platform == 'linux'
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ccache-${{ matrix.os }}-${{ env.FIREFOX_ESR_VERSION }}
+          max-size: ${{ env.CCACHE_MAXSIZE }}
+          variant: ccache
+
+      - name: Cache compiler (Windows / sccache)
+        if: matrix.platform == 'win'
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: sccache-${{ matrix.os }}-${{ env.FIREFOX_ESR_VERSION }}
+          max-size: ${{ env.CCACHE_MAXSIZE }}
+          variant: sccache
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      # ---- Fetch the pinned source tree ----------------------------------
+      # archive.mozilla.org hosts the official ESR source tarballs.
+      - name: Fetch Firefox ESR source (Linux)
+        if: matrix.platform == 'linux'
+        shell: bash
+        run: |
+          set -eux
+          url="https://archive.mozilla.org/pub/firefox/releases/${FIREFOX_ESR_VERSION}/source/firefox-${FIREFOX_ESR_VERSION}.source.tar.xz"
+          curl -fL "$url" -o firefox-source.tar.xz
+          mkdir -p gecko-src
+          tar -xJf firefox-source.tar.xz -C gecko-src --strip-components=1
+
+      - name: Fetch Firefox ESR source (Windows)
+        if: matrix.platform == 'win'
+        shell: bash
+        # Git Bash (bsdtar/libarchive) can extract .tar.xz on the Windows runner.
+        run: |
+          set -eux
+          url="https://archive.mozilla.org/pub/firefox/releases/${FIREFOX_ESR_VERSION}/source/firefox-${FIREFOX_ESR_VERSION}.source.tar.xz"
+          curl -fL "$url" -o firefox-source.tar.xz
+          mkdir -p gecko-src
+          tar -xJf firefox-source.tar.xz -C gecko-src --strip-components=1
+
+      # ---- Install build dependencies ------------------------------------
+      # ./mach bootstrap installs the platform toolchain (and Rust if missing).
+      # We run it from the fetched tree; --no-interactive keeps CI clean.
+      - name: Bootstrap build deps (Linux)
+        if: matrix.platform == 'linux'
+        working-directory: gecko-src
+        shell: bash
+        run: ./mach bootstrap --application-choice=browser --no-interactive
+
+      - name: Bootstrap build deps (Windows)
+        if: matrix.platform == 'win'
+        working-directory: gecko-src
+        shell: bash
+        # Git Bash drives ./mach on the Windows runner; bootstrap provisions
+        # the MSVC/Windows SDK pieces via the installed Visual Studio.
+        run: ./mach bootstrap --application-choice=browser --no-interactive
+
+      # ---- Rebrand the source tree ---------------------------------------
+      - name: Rebrand to AmnesiaLight (Linux)
+        if: matrix.platform == 'linux'
+        shell: bash
+        run: bash build/rebrand.sh "${{ github.workspace }}/gecko-src"
+
+      - name: Rebrand to AmnesiaLight (Windows)
+        if: matrix.platform == 'win'
+        shell: pwsh
+        run: pwsh -File build/rebrand.ps1 -SourcePath "${{ github.workspace }}\gecko-src"
+
+      # ---- Build & package the browser -----------------------------------
+      - name: Configure build (Linux)
+        if: matrix.platform == 'linux'
+        working-directory: gecko-src
+        shell: bash
+        run: echo "MOZCONFIG=${{ github.workspace }}/build/mozconfig" >> "$GITHUB_ENV"
+
+      - name: Configure build (Windows)
+        if: matrix.platform == 'win'
+        working-directory: gecko-src
+        shell: bash
+        run: echo "MOZCONFIG=${{ github.workspace }}/build/mozconfig" >> "$GITHUB_ENV"
+
+      - name: Build (./mach build)
+        working-directory: gecko-src
+        shell: bash
+        run: ./mach build
+
+      - name: Package (./mach package)
+        working-directory: gecko-src
+        shell: bash
+        run: ./mach package
+
+      # ---- Produce distributable artifacts -------------------------------
+      - name: Distribute artifacts (Linux)
+        if: matrix.platform == 'linux'
+        shell: bash
+        run: bash build/package.sh "${{ github.workspace }}/gecko-src" 0.1.0 "${{ github.workspace }}/artifacts"
+
+      - name: Distribute artifacts (Windows)
+        if: matrix.platform == 'win'
+        shell: pwsh
+        run: pwsh -File build/package.ps1 -SourcePath "${{ github.workspace }}\gecko-src" -Version 0.1.0 -OutDir "${{ github.workspace }}\artifacts"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: artifacts/*
+          if-no-files-found: error
