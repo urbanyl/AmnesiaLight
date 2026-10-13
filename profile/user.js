@@ -91,7 +91,7 @@ user_pref("media.autoplay.default", 5);
 user_pref("dom.security.https_only_mode", true);
 user_pref("dom.security.https_only_mode_ever_enabled", true);
 user_pref("dom.security.https_only_mode_send_http_background_request", false);
-user_pref("network.trr.mode", 3);
+user_pref("network.trr.mode", 2);
 user_pref("network.trr.uri", "https://dns.quad9.net/dns-query");
 user_pref("network.trr.default_provider_uri", "https://dns.quad9.net/dns-query");
 user_pref("network.trr.confirmationNS", "skip");

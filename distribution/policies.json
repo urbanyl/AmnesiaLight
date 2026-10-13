@@ -41,7 +41,7 @@
       "Enabled": true,
       "ProviderURL": "https://dns.quad9.net/dns-query",
       "Locked": true,
-      "Fallback": false
+      "Fallback": true
     },
     "Permissions": {
       "Camera": { "BlockNewRequests": true },

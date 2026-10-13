@@ -17,8 +17,8 @@ macOS) aux couleurs **vert & bleu** d'AmnesiaLight.
 - **Amnesia** : cache 100 % en memoire, effacement immediat des traces
   (`launch/wipe.*`).
 - **Ultra-securise** : anti-empreinte (`resistFingerprinting`), protection
-  anti-pistage stricte, **HTTPS obligatoire**, **DNS-over-HTTPS strict**
-  (Quad9), WebRTC/DRM desactives, permissions refusees par defaut.
+  anti-pistage stricte, **HTTPS obligatoire**, **DNS-over-HTTPS** (Quad9,
+  avec repli), WebRTC/DRM desactives, permissions refusees par defaut.
 - **Leger** : telemetrie, Pocket, contenu sponsorise, extraits et etudes
   desactives ; dechargement des onglets inactifs.
 - **Theming** : barre d'onglets **verticale** style Arc, accent degrade vert → cyan
