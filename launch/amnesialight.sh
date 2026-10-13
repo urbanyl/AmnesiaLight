@@ -2,16 +2,17 @@
 # =========================================================================
 #  AmnesiaLight launcher (Linux)
 #  Starts the browser with the AmnesiaLight profile.
-#  Default: private window. Pass --session for a persistent session.
+#  Default: normal window (session kept). Pass --private for a private window.
 # =========================================================================
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PROFILE="$ROOT/profile"
 
-MODE="--private-window"
+# Par defaut : fenetre normale. Options : --private / -p (fenetre privee).
+MODE=""
 case "${1:-}" in
-  --session|/session) MODE="" ;;
+  --private|-p) MODE="--private-window" ;;
 esac
 
 ENGINE=""
@@ -33,7 +34,7 @@ if [ -z "$ENGINE" ]; then
 fi
 
 echo "  AmnesiaLight  -  profil : $PROFILE"
-if [ -n "$MODE" ]; then echo "  Mode : fenetre privee (aucune trace)."; else echo "  Mode : session persistante."; fi
+if [ -n "$MODE" ]; then echo "  Mode : fenetre privee (aucune trace)."; else echo "  Mode : fenetre normale."; fi
 
 # Sync policies next to the engine (DuckDuckGo default + hardening)
 mkdir -p "$ROOT/engine/distribution"

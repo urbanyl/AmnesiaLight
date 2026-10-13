@@ -138,14 +138,38 @@ try {
     Copy-Item -LiteralPath $readmeFile -Destination (Join-Path $appDir 'README.md') -Force
     Set-Content -LiteralPath (Join-Path $appDir 'VERSION.txt') -Value $Version -Encoding ASCII
 
-    # ---- Top-level launchers (private by default) ---------------------------
-    $privateLauncher = @'
+    # ---- Top-level launchers (normal by default) ----------------------------
+    $mainLauncher = @'
 @echo off
 setlocal EnableExtensions
 title AmnesiaLight
 rem =========================================================================
-rem  AmnesiaLight portable launcher (private window, no traces).
+rem  AmnesiaLight portable launcher (normal window, session kept).
 rem  Runs the bundled engine with the bundled profile.
+rem =========================================================================
+set "ROOT=%~dp0"
+set "ENGINE="
+if exist "%ROOT%engine\amnesialight.exe" set "ENGINE=%ROOT%engine\amnesialight.exe"
+if not defined ENGINE if exist "%ROOT%engine\firefox.exe" set "ENGINE=%ROOT%engine\firefox.exe"
+if not defined ENGINE (
+  echo.
+  echo   AmnesiaLight - engine not found in "%ROOT%engine".
+  echo.
+  pause
+  exit /b 1
+)
+echo   AmnesiaLight  -  profile : %ROOT%profile
+echo   Mode : normal window.
+"%ENGINE%" -profile "%ROOT%profile" -no-remote %*
+endlocal
+'@
+
+    $privateLauncher = @'
+@echo off
+setlocal EnableExtensions
+title AmnesiaLight (prive)
+rem =========================================================================
+rem  AmnesiaLight portable launcher (private window, no traces).
 rem =========================================================================
 set "ROOT=%~dp0"
 set "ENGINE="
@@ -164,34 +188,9 @@ echo   Mode : private window (no traces).
 endlocal
 '@
 
-    $sessionLauncher = @'
-@echo off
-setlocal EnableExtensions
-title AmnesiaLight (session)
-rem =========================================================================
-rem  AmnesiaLight portable launcher (persistent session).
-rem  Keeps tabs/logins in the bundled profile until you run launch\wipe.cmd.
-rem =========================================================================
-set "ROOT=%~dp0"
-set "ENGINE="
-if exist "%ROOT%engine\amnesialight.exe" set "ENGINE=%ROOT%engine\amnesialight.exe"
-if not defined ENGINE if exist "%ROOT%engine\firefox.exe" set "ENGINE=%ROOT%engine\firefox.exe"
-if not defined ENGINE (
-  echo.
-  echo   AmnesiaLight - engine not found in "%ROOT%engine".
-  echo.
-  pause
-  exit /b 1
-)
-echo   AmnesiaLight  -  profile : %ROOT%profile
-echo   Mode : persistent session.
-"%ENGINE%" -profile "%ROOT%profile" -no-remote %*
-endlocal
-'@
-
     $ascii = New-Object System.Text.UTF8Encoding($false)
-    [System.IO.File]::WriteAllText((Join-Path $appDir 'AmnesiaLight.cmd'), $privateLauncher, $ascii)
-    [System.IO.File]::WriteAllText((Join-Path $appDir 'Run AmnesiaLight (session).cmd'), $sessionLauncher, $ascii)
+    [System.IO.File]::WriteAllText((Join-Path $appDir 'AmnesiaLight.cmd'), $mainLauncher, $ascii)
+    [System.IO.File]::WriteAllText((Join-Path $appDir 'AmnesiaLight (prive).cmd'), $privateLauncher, $ascii)
 
     # ---- Zip it -------------------------------------------------------------
     if (-not (Test-Path -LiteralPath $OutDir -PathType Container)) {

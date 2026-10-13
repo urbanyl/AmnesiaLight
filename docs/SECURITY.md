@@ -11,9 +11,9 @@ to report a vulnerability.
 
 ## Design principles
 
-1. **Private by default.** The default launcher opens a private window. No
-   history, cookies, or cache survive the session unless the user explicitly
-   opts in with `--session`.
+1. **Normal by default, private on demand.** The default launcher opens a
+   normal window (session kept). Launch with `--private` for a private window
+   where no history, cookies, or cache survive the session.
 2. **No telemetry.** Nothing is measured, collected, or transmitted. Tracking
    endpoints are disabled and pointed at inert values.
 3. **Deny by default.** Permissions are blocked, third-party trackers are
@@ -27,7 +27,7 @@ to report a vulnerability.
 
 | Area | Behaviour | Where |
 | --- | --- | --- |
-| Private by default | Launcher opens `--private-window` unless `--session` is passed | `launch/AmnesiaLight.cmd`, `launch/amnesialight.sh` |
+| Private window (option) | Launcher opens `--private-window` only when `--private` is passed | `launch/AmnesiaLight.cmd`, `launch/amnesialight.sh` |
 | Telemetry | Disabled and redirected to `data:,` | `profile/user.js`, `distribution/policies.json` |
 | Studies / experiments | Normandy and Shield studies disabled | `profile/user.js` |
 | HTTPS-only | `dom.security.https_only_mode = true`, policy `HTTPSOnly` | `profile/user.js`, `distribution/policies.json` |

@@ -34,7 +34,7 @@ What actually happened. Include exact error messages.
 - **AmnesiaLight version:** (`VERSION.txt`, or the release/tag)
 - **Platform:** Windows 10/11 or Linux (distro + version)
 - **Launch method:** `launch\AmnesiaLight.cmd` / `launch/amnesialight.sh` / portable launcher
-- **Mode:** private (default) or session (`--session`)
+- **Mode:** normal (default) or private (`--private`)
 
 ## Configuration touched
 

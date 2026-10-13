@@ -2,6 +2,13 @@
 
 Toutes les modifications notables d'AmnesiaLight sont documentees ici.
 
+## [0.2.2] - 2026-10-13
+
+### Modifie
+- Lancement par defaut en **fenetre normale** (session conservee).
+  Fenetre privee sur option : `--private` / `-p`.
+- Raccourcis (Bureau + projet) et lanceurs du paquet portable mis a jour.
+
 ## [0.2.1] - 2026-10-13
 
 ### Ajoute

@@ -94,23 +94,23 @@ System-wide fallbacks `/usr/lib/amnesialight/amnesialight` and
 bash launch/amnesialight.sh
 ```
 
-## Private vs. session mode
+## Normal vs. private mode
 
 | Mode | How to start | What persists |
 | --- | --- | --- |
-| **Private** (default) | `launch\AmnesiaLight.cmd` / `bash launch/amnesialight.sh` | Nothing; a private window closes its own traces. |
-| **Session** | add `--session` | Tabs and logins remain in `profile/` until you wipe. |
+| **Normal** (default) | `launch\AmnesiaLight.cmd` / `bash launch/amnesialight.sh` | Tabs and logins remain in `profile/` until you wipe. |
+| **Private** | add `--private` | Nothing; a private window closes its own traces. |
 
-Windows session:
+Windows private window:
 
 ```bat
-launch\AmnesiaLight.cmd --session
+launch\AmnesiaLight.cmd --private
 ```
 
-Linux session:
+Linux private window:
 
 ```bash
-bash launch/amnesialight.sh --session
+bash launch/amnesialight.sh --private
 ```
 
 All extra arguments are forwarded to the engine, so you can pass a URL or
@@ -205,4 +205,4 @@ browser executable.
 | Theme not applied | Ensure `user.js` sets `toolkit.legacyUserProfileCustomizations.stylesheets` to `true` and restart. |
 | Settings keep reverting | They are forced by `user.js`; edit it instead of the UI. |
 | Can't change a security option | It is locked in `distribution/policies.json`; edit the policy and restart. |
-| Traces remain after closing | You likely used `--session`; run `launch/wipe.*`. |
+| Traces remain after closing | You used a normal window; run `launch/wipe.*`. |

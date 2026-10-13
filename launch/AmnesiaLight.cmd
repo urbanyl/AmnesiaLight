@@ -4,16 +4,16 @@ title AmnesiaLight
 
 rem =========================================================================
 rem  AmnesiaLight launcher (Windows)
-rem  Starts the browser with the AmnesiaLight profile.
-rem  Default: private window (no traces). Use --session for a persistent one.
+rem  Default: normal window (session kept). Use --private for a private window.
 rem =========================================================================
 
 set "ROOT=%~dp0.."
 set "PROFILE=%ROOT%\profile"
 
-set "MODE=--private-window"
-if /I "%~1"=="--session" set "MODE="
-if /I "%~1"=="/session"  set "MODE="
+rem Par defaut : fenetre normale. Options : --private (fenetre privee).
+set "MODE="
+if /I "%~1"=="--private" set "MODE=--private-window"
+if /I "%~1"=="-p"       set "MODE=--private-window"
 
 set "ENGINE="
 if exist "%ROOT%\engine\amnesialight.exe" set "ENGINE=%ROOT%\engine\amnesialight.exe"
@@ -38,7 +38,7 @@ if not defined ENGINE (
 )
 
 echo   AmnesiaLight  -  profil : %PROFILE%
-if defined MODE (echo   Mode : fenetre privee ^(aucune trace^).) else (echo   Mode : session persistante.)
+if defined MODE (echo   Mode : fenetre privee ^(aucune trace^).) else (echo   Mode : fenetre normale.)
 
 rem Sync policies next to the engine (DuckDuckGo default + hardening)
 if not exist "%ROOT%\engine\distribution" mkdir "%ROOT%\engine\distribution" >nul 2>nul

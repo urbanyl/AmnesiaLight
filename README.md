@@ -12,9 +12,10 @@ macOS) aux couleurs **vert & bleu** d'AmnesiaLight.
 ## Points forts
 
 - **DuckDuckGo par defaut** : aucun autre moteur, suggestions desactivees.
-- **Prive par defaut** : le lanceur ouvre une fenetre privee (aucune trace).
-- **Amnesia** : cache 100 % en memoire, pas de cookies persistants, script
-  d'effacement immediat (`launch/wipe.*`).
+- **Fenetre normale par defaut** : session conservee ; lancer avec `--private`
+  pour une fenetre privee (aucune trace).
+- **Amnesia** : cache 100 % en memoire, effacement immediat des traces
+  (`launch/wipe.*`).
 - **Ultra-securise** : anti-empreinte (`resistFingerprinting`), protection
   anti-pistage stricte, **HTTPS obligatoire**, **DNS-over-HTTPS strict**
   (Quad9), WebRTC/DRM desactives, permissions refusees par defaut.
@@ -77,15 +78,13 @@ powershell -ExecutionPolicy Bypass -File tools\package-portable.ps1
 Produit `dist\AmnesiaLight-<version>-portable-win64.zip` (moteur + profil +
 policies + lanceurs), a lancer directement depuis une cle USB.
 
-## Sessions optionnelles
+## Mode prive (optionnel)
 
-Par defaut AmnesiaLight ne laisse aucune trace. Pour garder une session
-(onglets, connexions) :
+Par defaut, AmnesiaLight ouvre une **fenetre normale** (la session est
+conservee). Pour une fenetre **privee** (aucune trace) :
 
-- Demarre avec l'option `--session` :
-  - Windows : `launch\AmnesiaLight.cmd --session`
-  - Linux   : `bash launch/amnesialight.sh --session`
-- Les donnees restent dans `profile/` jusqu'a ce que tu lances un effacement.
+- Windows : `launch\AmnesiaLight.cmd --private`
+- Linux   : `bash launch/amnesialight.sh --private`
 
 ## Effacer immediatement (mode Amnesia)
 
